@@ -1,0 +1,6 @@
+flask3:
+  build: ./flask3
+  ports:
+   - "5000:5000"
+  volumes:
+   - .:/code
