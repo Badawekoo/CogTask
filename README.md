@@ -13,17 +13,12 @@ Required Software:
 
 What is Done:
 -------------
-Dockerfile for your application and any other needed component.
-Docker Compose to run docker containers.
-Jenkins job "steps" to achieve the CI/CD.
-Deploying the containers on Docker swarm
+ - Dockerfile for your application and any other needed component.
+ - Uploading image to docker registry.
+ - Docker Compose to run docker containers.
+ - Jenkins job "steps" to achieve the CI/CD.
+ - Deploying the containers on Docker swarm
 
-What is not done:
------------------
-Docker images held in a Docker registry.
-Comment: I faced a connectivity issue between daemon docker process and registry URL while trying to login to the repo from command line and I'm still working on it
-Error:
-Error response from daemon: Get https://registry-1.docker.io/v2/: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)
 
 ---------
 Let's go:
@@ -74,6 +69,27 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 e09a43f77bd0        flask-alpine        "python hello.py"   26 seconds ago      Up 6 seconds        0.0.0.0:5000->5000/tcp   pyhtonapp01
 
 Now go to your browser and hit localhost:5000, you should see your application deployed.
+
+-------------------------------------
+To push/pull the image to docker registry:
+-------------------------------------
+$docker tag 76d30c4fec45 badawekoo/flask-alpine:task
+$docker push badawekoo/flask-alpine:task
+
+output:
+The push refers to repository [docker.io/badawekoo/flask-alpine]
+6664852d10f2: Pushed 
+d17f25cb3086: Pushed 
+ec86574ae10e: Pushed 
+4a2596f9aa79: Mounted from library/python 
+5cf3066ccdbc: Mounted from library/python 
+76a1661c28fc: Mounted from library/python 
+beefb6beb20f: Mounted from library/python 
+df64d3292fd6: Mounted from library/python 
+task: digest: sha256:53ac9a0eb21b6de93f8e68e699ad68f3c69ccffd8dd7622311b94f917a8056da size: 1995
+
+## to pull the image
+$docker pull badawekoo/flask-alpine:task
 
 ------------------------------------------------------
 To run the container as a service from docker compose:
